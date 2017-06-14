@@ -55,22 +55,33 @@
 			}
 		}
 
-	
+		
+		/**
+		 * 强制执行要求用户输入固定的指令和数字。
+		 * @param scan
+		 * @return
+		 */
 		public static Integer getOperatorId(Scanner scan){
 			Integer i=null;
+			int flag=10;
 			
-			
-				
+			/**
+			 * 当某一扫描器抛出 InputMismatchException 时，该扫描器不会传递导致该异常的标记，因此可以通过其他某种方法来获取或跳过它。
+				这是java API文档中的原话。意思是说，如果nextInt方法没有成功解析出一个整数，那么你的输入不会被忽略。因为它或许能被其它格式解析。
+				那么你的程序中输入了a(一个字符)后，出现异常，开始下一次循环，但这时数据缓冲区内你上次输入的a还在，并没有清除，这时继续解析a，还是错误，于是这个过程就一直重复下去了。
+				现在你要改的是，出现错误把这次的输入清除，只要在catch中，加一句：scan.next()就搞定了！
+			 */
+				while(flag!=0){
 					try{
-							i=scan.nextInt();
+						i=scan.nextInt();
 						if(i instanceof Integer){
-							
+							flag=0;
 						}
 					}catch(Exception e){
 						System.out.println("请输入正确的指令");
-						
+						scan.next();
 					}
-				
+				}
 		
 				
 			return i;

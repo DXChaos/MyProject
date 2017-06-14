@@ -40,6 +40,15 @@ import allenlink.util.MoneyIsNotEnoughException;
 		
 		@Override
 		public double inquiry() {
+			System.out.println(
+					"--- --- --- ---欢迎光临--- --- --- ---"+"\n"+
+					"		我们将提供如下服务                                   "+"\n"+	
+					"		1.查询余额                                          "+"\n"+
+					"		2.存款	               "+"\n"+
+					"		3.取款                                                 "+"\n"+
+					"		4.退出系统	           "+"\n"+
+					"--- --- --- ---欢迎光临--- --- --- ---"
+				);
 			System.out.println("余额为"+moneyExample.getMoney());
 			return moneyExample.getMoney();
 		}
