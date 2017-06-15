@@ -1,10 +1,10 @@
 	
 	/**
+	 * 模型层。
 	 * 此类为ManagerInterface的实现类
 	 */
 	package allenlink.manager;
 	
-	//模型层
 	import allenlink.model.MoneyBean;
 import allenlink.util.MoneyIsNotEnoughException;
 //异常类
@@ -94,6 +94,13 @@ import allenlink.util.MoneyIsNotEnoughException;
 		@Override
 		public void exitSystem() {
 			System.exit(1);
+		}
+
+
+		@Override
+		public boolean signUp() {
+			// TODO Auto-generated method stub
+			return false;
 		}
 	
 	}

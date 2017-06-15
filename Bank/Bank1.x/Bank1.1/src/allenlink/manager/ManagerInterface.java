@@ -1,10 +1,12 @@
 	
 	/**	业务逻辑块，view层通过调用该层进行操作。
 	 * 
-	 *  该层有1：存款
-			2：取款
-			3：查询余额
-			4：退出系统
+	 *  该层有1：注册
+	 *  	2：登录
+	 *  	3：存款
+			4：取款
+			5：查询余额
+			6：退出系统
 	 * 	总计4个功能。
 	 */
 
@@ -16,11 +18,28 @@
 	public interface ManagerInterface {
 		
 		/**
+		 * 注册
+		 * 调用持久层，将注册信息(用户名和密码)保存在以用户名为文件名的properts文件。
+		 * @return boolean result 注册是否成功，成功返回true,失败返回false.
+		 */
+		
+		public boolean signUp(); 
+		
+		
+		/**
+		 * 登录
+		 * 调用持久层，根据用户输入的信息 
+		 */
+		
+		
+		
+		/**
+		 * 查询
 		 * 调用持久层，使用数据，返回查询结果。
 		 * @return double money 当前用户的余额。
 		 */
 		
-		public double inquiry();				//查询
+		public double inquiry();				
 		
 		
 		/**
@@ -46,4 +65,5 @@
 		 * 操作结束，退出系统。
 		 */
 		public void exitSystem();			//退出系统
+		
 	}
