@@ -26,7 +26,6 @@
 			
 			ManagerInterface manager=ManagerImpl.getInstance();	//获取manager对象。
 			Scanner scan=new Scanner(System.in);			//使用系统键盘输入作为输入流初始化Scanner.
-			boolean flag=true;
 			int operatorId=0;								//操作指令.
 			operatorId=getOperatorId(scan);					//获取int类型的数据。
 
@@ -63,7 +62,6 @@
 		 */
 		public static Integer getOperatorId(Scanner scan){
 			Integer i=null;
-			int flag=10;
 			
 			/**
 			 * 当某一扫描器抛出 InputMismatchException 时，该扫描器不会传递导致该异常的标记，因此可以通过其他某种方法来获取或跳过它。
@@ -71,19 +69,30 @@
 				那么你的程序中输入了a(一个字符)后，出现异常，开始下一次循环，但这时数据缓冲区内你上次输入的a还在，并没有清除，这时继续解析a，还是错误，于是这个过程就一直重复下去了。
 				现在你要改的是，出现错误把这次的输入清除，只要在catch中，加一句：scan.next()就搞定了！
 			 */
-				while(flag!=0){
+			
+//			while(true){
+//				try{
+//					i=scan.nextInt();
+//					if(i instanceof Integer){
+//						break;
+//					}
+//				}catch(Exception e){
+//					System.out.println("请输入正确的指令");
+//					scan.next();		//是以一个空格为读取分隔符，(以一个空格开始，以一个空格结束)。(每次读取两个空格之间的数据)。		
+//				}
+//			}
+//		return i;
+			
+				while(true){
 					try{
-						i=scan.nextInt();
+						i=Integer.parseInt(scan.nextLine());
 						if(i instanceof Integer){
-							flag=0;
+							break;
 						}
 					}catch(Exception e){
 						System.out.println("请输入正确的指令");
-						scan.next();
 					}
 				}
-		
-				
 			return i;
 		}
 	}
