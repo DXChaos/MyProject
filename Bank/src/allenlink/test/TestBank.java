@@ -7,6 +7,10 @@
 	import allenlink.manager.ManagerInterface;
 	import allenlink.manager.ManagerImpl;
 	
+	//异常类
+	import allenlink.util.MoneyIsNotEnoughException;
+	import allenlink.util.NegativeMoneyException;
+	
 	public class TestBank {
 	
 		public static void main(String[] args) {
@@ -36,14 +40,27 @@
 					manager.inquiry();
 				}else if(operatorId==2){
 					System.out.println("进行存储");
+					
 					double tempMoney=getOperatorId(scan);
-					manager.deposit(tempMoney);
+					try {
+						manager.deposit(tempMoney);
+					} catch (NegativeMoneyException e) {
+						System.out.println("存款金额不可以为负数，请重新输入正确的金额");
+					}
 				}else if(operatorId==3){
 					System.out.println("进行取款");
 					double tempMoney=getOperatorId(scan);
-					manager.withdrawy(tempMoney);
+					
+					try {
+						manager.withdrawy(tempMoney);
+					} catch (NegativeMoneyException e) {
+						System.out.println("取款金额不可以为负数，请重新输入正确的金额");
+					} catch (MoneyIsNotEnoughException e) {
+						System.out.println("余额不足，请重新输入正确的金额");
+					}
 				}else if(operatorId==4){
 					System.out.println("退出系统");
+					
 					manager.exitSystem();
 					scan.close();
 				}else{
@@ -85,7 +102,19 @@
 			
 				while(true){
 					try{
-						i=Integer.parseInt(scan.nextLine());
+						String message=scan.nextLine();	
+						/**
+						 * 字符串使用replaceAll()方法替换 * ? + / | 等字符的时候会报以下异常
+							Dangling meta character '*' near index 0
+							这主要是因为这些符号在正则表达示中有相应意义。
+							只需将其改为 [*] 或 //* 即可。
+							
+							Java中的replaceAll替换加号
+							原来replaceAll的第一个参数是正则，而+在正则中是特殊字符。需要转义。
+							正确的写法是replaceAll("\\+","-");
+						 */
+						message=message.replaceAll("\\+", " ").replaceAll("-", " ");	//当用户输入"+数字"或"-数字"时，则替换成" ".
+						i=Integer.parseInt(message);		//"+1"会被转型为1，"-1"会被转型为-1.
 						if(i instanceof Integer){
 							break;
 						}

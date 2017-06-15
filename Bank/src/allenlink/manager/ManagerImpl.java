@@ -57,33 +57,30 @@ import allenlink.util.MoneyIsNotEnoughException;
 		 * 存款。在余额的基础上加上存储的金额。
 		 * @param double money 需要存储的金额。
 		 * @see ManagerInterface
-		 * @exception NegativeMoneyException
+		 * @throws NegativeMoneyException
 		 */
 		
 		@Override
-		public void deposit(double money) {
-			try{
+		public void deposit(double money) throws NegativeMoneyException {
+			
 				if(money<0){
 					throw new NegativeMoneyException("金额为负数");
 				}
 				moneyExample.setMoney(moneyExample.getMoney()+money);
 				this.inquiry();
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-			}
+			
 		}
 
 		/**
 		 * 取款，在余额的基础上减去取出的金额。
 		 * @param double money 需要取出的金额。
 		 * @see ManagerInterface
-		 * @exception 	NegativeMoneyException
-		 * 				MoneyIsNotEnoughException
+		 * @throws MoneyIsNotEnoughException
+		 * 		 	NegativeMoneyException 
 		 */
 		
 		@Override
-		public void withdrawy(double money)  {
-			try{
+		public void withdrawy(double money) throws NegativeMoneyException, MoneyIsNotEnoughException  {
 				if(money<0){
 					throw new NegativeMoneyException("金额为负数");
 				}
@@ -92,10 +89,6 @@ import allenlink.util.MoneyIsNotEnoughException;
 				}
 				moneyExample.setMoney(moneyExample.getMoney()-money);
 				this.inquiry();
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-			}
-			
 		}
 
 		@Override

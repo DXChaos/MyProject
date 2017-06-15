@@ -9,6 +9,9 @@
 	 */
 
 	package allenlink.manager;
+
+	import allenlink.util.MoneyIsNotEnoughException;
+	import allenlink.util.NegativeMoneyException;
 	
 	public interface ManagerInterface {
 		
@@ -26,7 +29,7 @@
 		 * @exception NegativeMoneyException 存款金额为负数。
 		 */
 		
-		public void deposit(double money);				//存款
+		public void deposit(double money)throws NegativeMoneyException;				//存款
 		
 		
 		/**
@@ -36,7 +39,7 @@
 		 * 			  MoneyIsNotEnoughException	余额不足，即取款金额大于存余额。
 		 */
 		
-		public void withdrawy(double money);			//取款
+		public void withdrawy(double money)throws NegativeMoneyException,MoneyIsNotEnoughException;			//取款
 		
 		
 		/**
