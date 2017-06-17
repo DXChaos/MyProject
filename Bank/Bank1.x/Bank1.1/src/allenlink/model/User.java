@@ -18,11 +18,11 @@
 		private static User instance;
 		
 		
-		public User(){
+		private User(){
 		}
 		
 		
-		public User(String userName,String passWord){
+		private User(String userName,String passWord){
 			this.userName=userName;
 			this.passWord=passWord;
 		}
@@ -55,12 +55,11 @@
 		 * @return User instance 一个User对象。
 		 */
 		
-		public User getInstance(String userName,String passWord){
+		public static User getInstance(String userName,String passWord){
 			if(instance==null){
 				instance=new User(userName,passWord);
 			}
 			return instance;
 		}
 		
-
 	}

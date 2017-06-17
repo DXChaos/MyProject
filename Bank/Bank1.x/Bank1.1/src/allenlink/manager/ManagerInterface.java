@@ -12,6 +12,8 @@
 
 	package allenlink.manager;
 
+	import java.io.IOException;
+
 	import allenlink.util.MoneyIsNotEnoughException;
 	import allenlink.util.NegativeMoneyException;
 	
@@ -20,17 +22,22 @@
 		/**
 		 * 注册
 		 * 调用持久层，将注册信息(用户名和密码)保存在以用户名为文件名的properts文件。
+		 * @param String userName	用户的注册名，用户通过控制台输入的。
 		 * @return boolean result 注册是否成功，成功返回true,失败返回false.
+		 * @throws IOException
 		 */
 		
-		public boolean signUp(); 
+		public boolean signUp(String userName,String passWord)throws IOException; 
 		
 		
 		/**
 		 * 登录
 		 * 调用持久层，根据用户输入的信息 
+		 * @return boolean result 登录是否成功，成功返回true,失败返回false.
+		 * @throws IOException
 		 */
 		
+		public boolean signIn(String userName,String passWord) throws IOException;
 		
 		
 		/**
@@ -48,7 +55,7 @@
 		 * @exception NegativeMoneyException 存款金额为负数。
 		 */
 		
-		public void deposit(double money)throws NegativeMoneyException;				//存款
+		public void deposit(double money)throws NegativeMoneyException,IOException;				//存款
 		
 		
 		/**
@@ -58,12 +65,14 @@
 		 * 			  MoneyIsNotEnoughException	余额不足，即取款金额大于存余额。
 		 */
 		
-		public void withdrawy(double money)throws NegativeMoneyException,MoneyIsNotEnoughException;			//取款
+		public void withdrawy(double money)throws NegativeMoneyException,
+			MoneyIsNotEnoughException,IOException;			//取款
 		
 		
 		/**
 		 * 操作结束，退出系统。
+		 * @throws IOException
 		 */
-		public void exitSystem();			//退出系统
+		public void exitSystem()throws IOException;			//退出系统
 		
 	}

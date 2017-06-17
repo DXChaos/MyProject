@@ -1,6 +1,7 @@
 	
 	package allenlink.test;
 	
+	import java.io.IOException;
 	import java.util.Scanner;
 	
 	//业务层
@@ -13,42 +14,77 @@
 	
 	public class TestBank {
 	
-		public static void main(String[] args) {
+		public static void main(String[] args){
 			
 			//进入主界面
-			System.out.println(
-				"--- --- --- ---欢迎光临--- --- --- ---"+"\n"+
-				"		我们将提供如下服务                                   "+"\n"+	
-				"		1.查询余额                                          "+"\n"+
-				"		2.存款	               "+"\n"+
-				"		3.取款                                                 "+"\n"+
-				"		4.退出系统	           "+"\n"+
-				"--- --- --- ---欢迎光临--- --- --- ---"
-			);
+			System.out.println("--- --- --- ---欢迎光临--- --- --- ---");
+			System.out.println("		我们将提供如下服务                                   		");
+			System.out.println("			1.注册                                       			");
+			System.out.println("			2.登录	               		");
+			System.out.println("			3.查询                                                 		");
+			System.out.println("			4.存款         						");
+			System.out.println("			5.取款                                                 		");
+			System.out.println("			6.退出系统           					");
+			System.out.println("--- --- --- ---欢迎光临--- --- --- ---");
 			System.out.println("请选择您要进行的操作");
-			
-			
 			ManagerInterface manager=ManagerImpl.getInstance();	//获取manager对象。
 			Scanner scan=new Scanner(System.in);			//使用系统键盘输入作为输入流初始化Scanner.
 			int operatorId=0;								//操作指令.
 			operatorId=getOperatorId(scan);					//获取int类型的数据。
 
 			while(true){
-
 				if(operatorId==1){
+					System.out.println("进行注册操作");
+					boolean flag=true;
+					System.out.println("请输入注册用户名");
+					String tempName=scan.next();
+					System.out.println("请输入注册密码");
+					String tempPass=scan.next();
+					
+					try {
+						flag = manager.signUp(tempName, tempPass);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					if(!flag){
+						System.out.println("注册成功");
+					}else{
+						System.out.println("当前用户名已存在，请换一个用户名");
+					}
+				}else if(operatorId==2){
+					System.out.println("进行登录操作");
+					System.out.println("请输入用户名");
+					String tempName=scan.next();
+					System.out.println("请输入密码");
+					String tempPass=scan.next();
+					boolean flag=false;
+					try {
+						flag=manager.signIn(tempName,tempPass);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					if(flag){
+						System.out.println("欢迎登陆");
+					}else{
+						System.out.println("用户名或者 密码错误，请重新登陆");
+					}
+					
+				}else if(operatorId==3){
 					System.out.println("进行查询");
 					manager.inquiry();
-				}else if(operatorId==2){
-					System.out.println("进行存储");
+				}else if(operatorId==4){
+					System.out.println("进行存储，请输入存款金额");
 					
 					double tempMoney=getOperatorId(scan);
 					try {
 						manager.deposit(tempMoney);
 					} catch (NegativeMoneyException e) {
 						System.out.println("存款金额不可以为负数，请重新输入正确的金额");
+					}catch(IOException e){
+						System.out.println("数据库无法访问");
 					}
-				}else if(operatorId==3){
-					System.out.println("进行取款");
+				}else if(operatorId==5){
+					System.out.println("进行取款,请输入取款金额");
 					double tempMoney=getOperatorId(scan);
 					
 					try {
@@ -57,11 +93,17 @@
 						System.out.println("取款金额不可以为负数，请重新输入正确的金额");
 					} catch (MoneyIsNotEnoughException e) {
 						System.out.println("余额不足，请重新输入正确的金额");
+					}catch(IOException e){
+						System.out.println("数据库无法访问");
 					}
-				}else if(operatorId==4){
+				}else if(operatorId==6){
 					System.out.println("退出系统");
 					
-					manager.exitSystem();
+					try {
+						manager.exitSystem();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					scan.close();
 				}else{
 					System.out.println("请输入正确的字符");
