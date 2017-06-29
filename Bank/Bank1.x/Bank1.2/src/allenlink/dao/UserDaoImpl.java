@@ -3,7 +3,8 @@
 
 	import java.io.File;
 	import java.io.FileInputStream;
-	import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 	import java.io.IOException;
 	import java.util.Properties;
 	
@@ -27,7 +28,7 @@
 			
 			//使用用户名作为文件名，实例化文件对象，在判断当前路径文件是否存在。
 			File file=new File("D:\\Code\\java\\MyProject"
-					+ "\\Bank\\Bank1.x\\Bank1.1\\DataBase\\"
+					+ "\\Bank\\Bank1.x\\Bank1.2\\DataBase\\"
 					+userName+".properties");
 			if(file.exists()){			//当前用户名存在。
 				return true;
@@ -56,7 +57,7 @@
 			
 			//实例文件对象，然后以用户名为文件名创建properties文件。
 			File file=new File("D:\\Code\\java\\MyProject"
-					+ "\\Bank\\Bank1.x\\Bank1.1\\DataBase\\"
+					+ "\\Bank\\Bank1.x\\Bank1.2\\DataBase\\"
 					+userName+".properties");
 			Properties pro = new Properties();
 			if(!file.exists()){
@@ -114,7 +115,7 @@
 		public String confirmPassWord(String userName) throws IOException {
 			
 			File file=new File("D:\\Code\\java\\MyProject"
-					+ "\\Bank\\Bank1.x\\Bank1.1\\DataBase\\"
+					+ "\\Bank\\Bank1.x\\Bank1.2\\DataBase\\"
 					+userName+".properties");
 			Properties pro = new Properties();
 			FileInputStream oFile = new FileInputStream(file);
@@ -137,7 +138,7 @@
 		@Override
 		public void readUserAllInfo(String userName,String passWord) throws IOException {
 			File file=new File("D:\\Code\\java\\MyProject"
-					+ "\\Bank\\Bank1.x\\Bank1.1\\DataBase\\"
+					+ "\\Bank\\Bank1.x\\Bank1.2\\DataBase\\"
 					+userName+".properties");
 			Properties pro = new Properties();
 			FileInputStream oFile = new FileInputStream(file);
@@ -148,6 +149,32 @@
 			user.setPassWord(passWord);
 			double temp=Double.parseDouble(pro.getProperty("money"));
 			moneyBean.setMoney(temp);
+		}
+
+
+		/**
+		 * 转账，根据用户名将相应的用户名下的金额和转账的金额相加并重新保存。
+		 * @throws IOException 
+		 */
+		
+		@Override
+		public void moneyTransfer(String name, double money) throws IOException {
+			File file=new File("D:\\Code\\java\\MyProject"
+					+ "\\Bank\\Bank1.x\\Bank1.2\\DataBase\\"
+					+name+".properties");
+			Properties pro = new Properties();
+			FileInputStream oFile = new FileInputStream(file);
+			pro.load(oFile);			//将从文件中加载到properties对象中。
+			oFile.close();
+			
+			double tempMoney=Double.parseDouble(pro.getProperty("money"))+money;
+			String tempmoney=String.valueOf(tempMoney);
+			pro.setProperty("money", tempmoney);
+			
+			//保存到数据库。
+			FileOutputStream oFilei = new FileOutputStream(file);
+			pro.store(oFilei, "comments");
+			
 		}
 	
 	}

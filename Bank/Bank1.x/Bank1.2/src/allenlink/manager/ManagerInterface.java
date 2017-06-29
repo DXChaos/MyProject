@@ -76,7 +76,8 @@
 		 * @param	String name 	用户名
 		 * 			double money 	转账金额
 		 */
-		public void moneyTransfer(String name,double money);
+		public void moneyTransfer(String name,double money) 
+				throws NegativeMoneyException, MoneyIsNotEnoughException, IOException ;
 		
 		
 		/**

@@ -46,4 +46,11 @@
 		 */
 		
 		public void readUserAllInfo(String userName,String passWord) throws IOException;
+	
+		
+		/**
+		 * 根据用户名将相应的金额存入用户数据库中。
+		 */
+		
+		public void moneyTransfer(String name,double money) throws IOException;
 	}

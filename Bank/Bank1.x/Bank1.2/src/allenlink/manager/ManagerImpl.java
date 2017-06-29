@@ -160,19 +160,26 @@
 		 * 转账。
 		 * 输入转账用户，判断转账用户是否存在;
 		 * 输入金额，判断是否金额是否够。
+		 * @throws IOException 
+		 * @throws MoneyIsNotEnoughException 
+		 * @throws NegativeMoneyException 
 		 */
 		
 		@Override
-		public void moneyTransfer(String name, double money) {
-			if(userDaoInterface.confirmUserName(name)&&!(name.equals(user.getUserName())) ){				//当前用户名存在，则进行转账金额判断。
+		public void moneyTransfer(String name, double money) 
+				throws NegativeMoneyException, MoneyIsNotEnoughException, IOException {
+			if(userDaoInterface.confirmUserName(name)&&!
+					(name.equals(user.getUserName())) ){				//当前用户名存在，则进行转账金额判断。
+				
 				System.out.println("转账用户存在");
-				if(money<=moneyExample.getMoney()){					//转账金额小于或者用户余额。
+				if(money<=moneyExample.getMoney()&&money>=0){					//转账金额小于或者用户余额。
 					System.out.println("转账成功");
 					//将金额转入被转账用户。
-					//将金额从转账用户中扣除。
-					
+					userDaoInterface.moneyTransfer(name, money);
+					//将金额从转账用户中扣除,利用取款的方式将转账金额从转账金额中扣除。
+					withdrawy(money);
 				}else{												//金额不够，无法转账。
-					System.out.println("你的余额不足");
+					System.out.println("你的余额不足或者金额不可以为负");
 				}
 				
 			}else{													

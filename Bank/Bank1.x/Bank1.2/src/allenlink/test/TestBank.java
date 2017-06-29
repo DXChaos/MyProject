@@ -117,15 +117,15 @@
 				while(true){
 					
 					if(tempNum==1){
-						inquiry(manager);
+						inquiry(manager);				//查询
 					}else if(tempNum==2){
-						deposite(manager, scan);
+						deposite(manager, scan);		//存款
 					}else if(tempNum==3){
-						withdraw(manager, scan);
+						withdraw(manager, scan);		//取款
 					}else if(tempNum==4){
-						moneyTransfer(manager, scan);
+						moneyTransfer(manager, scan);	//转账
 					}else if(tempNum==5){
-						systemExit(manager,scan);
+						systemExit(manager,scan);		//退出系统
 					}else{
 						System.out.println("请输入正确的字符");
 					}
@@ -214,8 +214,16 @@
 			System.out.println("请输入转账用户");
 			String name=scan.next();
 			System.out.println("请输入转账金额");
-			double money=scan.nextDouble();
-			manager.moneyTransfer(name, money);
+			double money=getOperatorId(scan);
+			try {
+				manager.moneyTransfer(name, money);
+			} catch (NegativeMoneyException e) {
+				e.printStackTrace();
+			} catch (MoneyIsNotEnoughException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	
