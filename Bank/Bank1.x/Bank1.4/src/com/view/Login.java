@@ -23,6 +23,7 @@
 	import javax.swing.JTextField;
 	import javax.swing.JButton;
 	import javax.swing.JOptionPane;			//弹窗。
+import javax.swing.JPasswordField;
 	
 	
 	public class Login {
@@ -33,7 +34,7 @@
 		private JLabel jLabel1=new JLabel("用户名");						//用户名标签
 		private JLabel jLabel2=new JLabel("密码");						//密码标签
 		private JTextField jTextField1=new JTextField("请输入用户名");		//文本框  
-		private JTextField jTextField2=new JTextField("请输入密码");		//文本框
+		private JPasswordField jTextField2=new JPasswordField("请输入密码");		//文本框
 		private JButton	jButton1=new JButton("注册");						//注册按钮
 		private JButton jButton2=new JButton("登录");						//登录按钮
 		private ManagerInterface manager=ManagerImpl.getInstance();		//业务层对象
