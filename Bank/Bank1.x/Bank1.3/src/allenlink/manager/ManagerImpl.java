@@ -7,14 +7,17 @@
 	package allenlink.manager;
 	
 	//Dao层。
-	import allenlink.dao.UserDaoImpl;
 	import allenlink.dao.UserDaoInterface;
+	
+	//Factory层
+	import allenlink.factory.UserDaoFactory;
 	
 	//模型层和工具包。
 	import allenlink.model.MoneyBean;
 	import allenlink.model.User;
 	import allenlink.util.MD5Util;
 	import allenlink.util.MoneyIsNotEnoughException;
+	
 	//异常类
 	import allenlink.util.NegativeMoneyException;
 	import java.io.IOException;
@@ -22,11 +25,13 @@
 	public class ManagerImpl implements ManagerInterface {
 		
 		private static ManagerImpl instance;
+		
 		//模型层对象，在业务层初始化，DAO层通过单例获得，并进行修改。
 		private MoneyBean moneyExample=MoneyBean.getInstance(0);		//初始化时的金额是0元。
 		private User user=User.getInstance(" ", " ");
+		
 		//DAO层对象。
-		private UserDaoInterface userDaoInterface=new UserDaoImpl();	//获取Dao层具体实现类对象通过Factory工厂获得。
+		private UserDaoInterface userDaoInterface=UserDaoFactory.getInstance().getUserDaoInterface();	//获取Dao层具体实现类对象通过Factory工厂获得。
 		
 		private ManagerImpl(){
 		}
@@ -84,7 +89,7 @@
 		 * @return ManagerImpl instance 一个ManagerImpl类型的对象
 		 */
 		
-		public static ManagerImpl getInstance(){
+		public static synchronized ManagerImpl getInstance(){
 			if(instance==null){
 				instance=new ManagerImpl();
 			}

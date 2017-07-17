@@ -55,7 +55,7 @@
 		 * @return User instance 一个User对象。
 		 */
 		
-		public static User getInstance(String userName,String passWord){
+		public static synchronized User getInstance(String userName,String passWord){
 			if(instance==null){
 				instance=new User(userName,passWord);
 			}

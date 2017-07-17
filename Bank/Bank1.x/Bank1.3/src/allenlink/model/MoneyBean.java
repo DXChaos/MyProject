@@ -42,7 +42,7 @@
 		 * @return	MoneyBean instance 一个MoneyBean对象。
 		 */
 		
-		public  static MoneyBean getInstance(double money){
+		public  static synchronized MoneyBean getInstance(double money){
 			if(instance==null){
 				instance=new MoneyBean(money);
 			}
