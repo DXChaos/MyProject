@@ -212,7 +212,7 @@
 		
 		private static void moneyTransfer(ManagerInterface manager, Scanner scan) {
 			System.out.println("请输入转账用户");
-			String name=scan.next();
+			String name=scan.nextLine();
 			System.out.println("请输入转账金额");
 			double money=getOperatorId(scan);
 			try {
